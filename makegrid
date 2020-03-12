@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# makegrid is intended to be used should the user want to create a custom vertical grid and
+# not use the default WOA01 grid employed in FeMIP. Users must edit makegrid. The output
+# of makegrid is two files: 'mygrid' and 'depth' which will contain the neccessary inforamtion required 
+# by FeMIP to do the interpolation.
+
+# Written by Jonathan J Rogerson
+# 25 February 2020
+
+shiftdepth="5"     # IMPORTANT: FeMIP employs a linear interpolation for the vertical grid,
+                   # therefore, it is important that for 'shiftdepth' you put the first depth that
+                   # occurs in your model file. This is neccessary, else, the first depth in
+                   # the processed file, after running FeMIP, will contain just NaN values. 
+                   # So for example, if the first depth of my desired vertical grid begins at 0 m, 
+                   # but my model grid starts at 5 m, you must set 'shiftdepth' to 5. FeMIP
+                   # will shift the grid to start at 0 m and not at the depth of 'shiftdepth'.
+
+# Create the vertical grid file
+
+# When editing the 'mygrid' file, please only edit the 'size' and 'levels' variables
+
+cat > mygrid << EOR
+zaxistype = depth_below_sea
+size = 31     
+units = m
+levels = 0 5 15 27.5 45 65 87.5 115 147.5 182.5 220 270 340 430 535 650 775 915 1070 1245 1465 1730 2020 2340 2680 3050 3475 3950 4450 4950 5450
+EOR
+
+sed -e 's/[[:blank:]]*=[[:blank:]]*/=/g' -e 's/\(=[[:blank:]]*\)\(.*\)/\1"\2"/' -e 's/\s\+/,/g' mygrid > tmp # Formatting 
+
+source tmp
+
+depth=$levels
+depth="${depth:0:0}$shiftdepth${depth:1}"    # Replace first element of levels with shiftdepth
+
+cat <<< "$depth" > depth
+
+chmod 755 mygrid
+rm tmp
+
+
+
+
+
+ 
