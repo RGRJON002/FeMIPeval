@@ -12,7 +12,7 @@
  %  be 'FeMIP'.
  %
  %  EXAMPLE
- %  model_section('GA02','FeMIP_01_BFM.nc','N7f','BFM')
+ %  model_section('GA02_var73','FeMIP_01_BFM.nc','N7f','BFM')
  %
  %  The output of model_section will be a .mat file with four variables:
  %

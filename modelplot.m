@@ -84,6 +84,9 @@ if ~exist('scale_model','var')     % Scale the model data, default is power of 0
     scale_model = 0;
 end
 
+if ~exist('units','var')
+    units = ' ';                   % If no units are specified, have null
+end
 %% Create the basic figure
 figure
 
@@ -156,11 +159,11 @@ title('(e)')
 xlabel(strcat('Concentration of',{' '},vartype ,{' '},'[',units,']'))
 ylabel('Density')
 legend('OBS','MODEL')
-xlim([0 2])
+xlim([0 c_lim*2])
 
 h = subplot(3,2,6);     % Stats table
 
-cnames = {'Dissolved iron [umol/m3]'};
+cnames = {string(strcat('Concentration of',{' '},vartype ,{' '},'[',units,']'))};
 rnames = {'Model mean','Obs mean','Model std',...
     'Obs std','Pearson r','RMSD','B','AAE (MAE)',...
     'RMSD_CP','MEF','RI'};
