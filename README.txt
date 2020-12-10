@@ -40,7 +40,7 @@ The following is a flow diagram showing the order in which the various scripts m
 				|
 			   modelplot.m	
 
-When running the scripts, place FeMIP and makegrid in the same directory as the model output file.
+When running the scripts, edit FeMIP and makegrid appropriately.
 Run GEOTRACES_section.m in conjunction with GEOTRACES_IDP2017_v2_Discrete_Sample_Data.nc.
 modelsection.m will use the outputs of FeMIP and GEOTRACES_section.m to create the necessary
 process files for modelplot.m
@@ -49,8 +49,10 @@ process files for modelplot.m
 Useful NCO commands
 -------------------
 
-For FeMIP, the model file must have certain attributes and variable names. Therefore, here are a 
-number of common NCO and CDO commands that can be used to preprocess a file before running FeMIP.
+For FeMIP, the model file must have certain attributes and variable names. Ideally, the model outputs
+should be CMOR-ized (https://cmor.llnl.gov/) in their file structure to be compatible with FeMIP.
+Therefore, here are a number of common NCO and CDO commands that can be used to preprocess a file 
+before running FeMIP.
 
 Associate your lon and lat variables with a specific variable
 
@@ -64,9 +66,10 @@ Can use the following to rename your variables
 
 ncrename -a OLDNAME, NEWNAME FILE.nc
 
+Subset a file with only selected variables
+
+cdo select,name=VAR1,VAR2, … ,VARN FILE.nc FILE_NEW.nc
 
 March 2020
+Edited December 2020
 Jonathan J Rogerson
-
-
- 	
