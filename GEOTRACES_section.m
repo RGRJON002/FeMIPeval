@@ -25,15 +25,19 @@ function GEOTRACES_section(section,filepath,variable,vgrid)
 % EXAMPLE 1:
 % GEOTRACES_section('GA02','~/Documents/GEOTRACES_IDP2017_v2/discrete_sample_data/netcdf','var73')
 %
-% If you wish to create your own vertical grid, store it as a variable array and
-% then input it into GEOTRACES_section
+% If you choose to use a custom grid (makegrid), then you can apply it to
+% the GEOTRACES Data
 %
 % EXAMPLE 2:
-% mygrid = [0,10,20,50,75,100 ...]
-% GEOTRACES_section('GA02','~/Documents/GEOTRACES_IDP2017_v2/discrete_sample_data/netcdf','var73',mygrid)
-% IMPORTANT: Ensure that your custom grid is identical to that used in
-% FeMIP. If not, this will result in indice errors. Refer to the makegrid
-% file and the README.txt for more information.
+% The user has the option to use the grid from makegrid. 
+% Use 'T' if you would like to use your custom grid from makegrid; else
+% leave blank or set to 'F' to use the default WOA01 vertical grid
+%
+% GEOTRACES_section('GA02','~/Documents/GEOTRACES_IDP2017_v2/discrete_sample_data/netcdf','var73','T')
+%
+% Refer to the makegrid file and the README.txt for more information.
+% NOTE: if you set the vgrid option to 'F', but you used makegrid, this may
+% generate an error if the grid dimension and design are not identical
 %
 % List of sections available:
 %   'GA01'
@@ -71,6 +75,7 @@ function GEOTRACES_section(section,filepath,variable,vgrid)
 %
 % Jonathan J Rogerson
 % 29 January 2020
+% Edited: 10 December 2020
 
 %% Read the data
 
@@ -135,13 +140,16 @@ if isempty(var)
 else
 
 %% Create vertical grid
-if ~exist('vgrid','var')
+
+if ~exist('vgrid','var') || vgrid == 'F'
    array = [0 10 20 30 50 75 100 125 150 200 250 ...
             300 400 500 600 700 800 900 1000 1100 ... 
             1200 1300 1400 1500 1750 2000 2500 3000 ...
             3500 4000 4500 5000 5500];   % Default WOA01 array if no vertical grid is given
-else
-    array = [vgrid(:)];   % Vertical grid is specified by the user
+elseif  vgrid == 'T'
+%    array = [vgrid(:)];   % Vertical grid is specified by the user
+    array = dlmread('levels');  % Vertical grid read from the makegrid
+    array(end)=[];              % Fix
 end
 
 %% Loop through each column and identify the missing values and then interpolate
@@ -199,4 +207,3 @@ save(strcat(section,'_',variable),'-struct','data');    % Save structure
 
 end
 end
-
