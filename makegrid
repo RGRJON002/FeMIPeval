@@ -9,7 +9,7 @@
 # 25 February 2020
 # Edited 10 December 2020
 
-INDIR="../DATA" # Directory where model outputs are stored
+INDIR="../MODEL_DATA" # Directory where model outputs are stored
 
 shiftdepth="5"     # IMPORTANT: FeMIP employs a linear interpolation for the vertical grid,
                    # therefore, it is important that for 'shiftdepth' you put the first depth that

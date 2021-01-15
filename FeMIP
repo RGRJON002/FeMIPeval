@@ -14,7 +14,7 @@
 # Edited 5 December 2020
 
 MYGRID=false          # Set MYGRID to true if you wish to use your custom grid created by 'makegrid'
-INDIR="../DATA" # Directory of model files to be processed
+INDIR="../MODEL_DATA" # Directory of model files to be processed
 EXDIR="../OUTPUTS" # Location where output directory will be created
 OUTDIR="$EXDIR/FeMIP_01_nearest_interpolation" # Output directory
 
