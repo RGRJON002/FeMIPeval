@@ -1,4 +1,4 @@
-function GEOTRACES_section(section,filepath,variable,vgrid)
+function GEOTRACES_section(section,variable,vgrid)
 
 % This script is intended to be used in conjuction with the
 % GEOTRACES_IDP2017_v2_Discrete_Sample_Data.nc available at
@@ -15,25 +15,29 @@ function GEOTRACES_section(section,filepath,variable,vgrid)
 %   vertical_grid
 %   [Variable]_interp (interpolation of data to vertical grid)
 %
-% The function GEOTRACES_section allows for four inputs: the section of interest
-% (refer to list of sections), the file path to
-% GEOTRACES_IDP2017_v2_Discrete_Sample_Data.nc, the variable of interest (refer to documentation on 
-% naming conventions of variables in GEOTRACES_IDP2017_v2_Discrete_Sample_Data.nc) and a vertical
-% grid. If no grid is specified, the default interpolation is
-% to the World Ocean Atlas 2001 (WOA01) (Conkright et al. 2002)
+% The function GEOTRACES_section allows for four inputs: 
+% - the section of interest (refer to list of sections),  
+% - the variable of interest (refer to documentation on naming conventions 
+%   of variables in nc_variables.txt) 
+% - a vertical grid, in a file named 'levels'. 
+%   If no grid is specified, the default interpolation is
+%   to the World Ocean Atlas 2001 (WOA01) (Conkright et al. 2002)
+% - the file path to GEOTRACES_IDP2017_v2_Discrete_Sample_Data.nc, unless
+%   added to the the search path (with the addpath command)
 %
 % EXAMPLE 1:
-% GEOTRACES_section('GA02','~/Documents/GEOTRACES_IDP2017_v2/discrete_sample_data/netcdf','var73')
+% GEOTRACES_section without any argument is equivalent to running 
+% GEOTRACES_section('GA02','var73') if the path 
 %
-% If you choose to use a custom grid (makegrid), then you can apply it to
-% the GEOTRACES Data
+% If you choose to use a custom grid (FeMIP_makegrid), then you can apply 
+% it to the GEOTRACES Data
 %
 % EXAMPLE 2:
-% The user has the option to use the grid from makegrid. 
+% The user has the option to use the grid generated with FeMIP_makegrid. 
 % Use 'T' if you would like to use your custom grid from makegrid; else
 % leave blank or set to 'F' to use the default WOA01 vertical grid
 %
-% GEOTRACES_section('GA02','~/Documents/GEOTRACES_IDP2017_v2/discrete_sample_data/netcdf','var73','T')
+% GEOTRACES_section('GA02','var73','T')
 %
 % Refer to the makegrid file and the README.txt for more information.
 % NOTE: if you set the vgrid option to 'F', but you used makegrid, this may
@@ -73,20 +77,23 @@ function GEOTRACES_section(section,filepath,variable,vgrid)
 %   'GPpr10'
 %
 %
-% Jonathan J Rogerson
-% 29 January 2020
-% Edited: 10 December 2020
+% Author: Jonathan J Rogerson (UCT)
+% Contributors: Marcello Vichi (UCT)
 
 %% Read the data
+% default values
+IDP = 'GEOTRACES_IDP2017_v2_Discrete_Sample_Data.nc';
+VAR = 'var73'; % dissolved Fe
+SEC = 'GA02';
 
-if ~exist('filepath','var')
-        error('Please add filepath to GEOTRACES_IDP2017_v2_Discrete_Sample_Data.nc')
+if ~exist(IDP,'file')
+    error(['GEOTRACES file ',IDP,' not found! e.g. addpath ../GEOTRACES/discrete_sample_data/netcdf'])
 else
-    file = fullfile(filepath,'GEOTRACES_IDP2017_v2_Discrete_Sample_Data.nc');   % The file name of latest data
-    if ~isfile(file)
-        error('GEOTRACES_IDP2017_v2_Discrete_Sample_Data.nc data not found in specfied directory')
-    end
+    file = IDP;
 end
+
+if ~exist('section','var'); section = SEC; end
+if ~exist('variable','var'); variable = VAR; end
 
 % ncdisp(file); optional to display file contents
 
