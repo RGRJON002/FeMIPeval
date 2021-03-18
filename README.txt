@@ -4,8 +4,8 @@ Introduction
 
 This package consists of the following bash and MATLAB scripts:
 
-	FeMIP
-	makegrid
+	FeMIP_regrid
+	FeMIP_makegrid
 	GEOTRACES_section.m
 	model_section.m
 	modelplot.m
@@ -29,7 +29,7 @@ and also provide the desired model file.
 The following is a flow diagram showing the order in which the various scripts must be run:
 
 
-	GEOTRACES_section.m		FeMIP & makegrid (optional)
+	GEOTRACES_section.m	   FeMIP_regrid & FeMIP_makegrid (optional)
 		|				|	
 		|				|
 		|				|
@@ -40,19 +40,19 @@ The following is a flow diagram showing the order in which the various scripts m
 				|
 			   modelplot.m	
 
-When running the scripts, edit FeMIP and makegrid appropriately.
+When running the scripts, execute FeMIP_regrid with the desired options and edit FeMIP_makegrid appropriately.
 Run GEOTRACES_section.m in conjunction with GEOTRACES_IDP2017_v2_Discrete_Sample_Data.nc.
-modelsection.m will use the outputs of FeMIP and GEOTRACES_section.m to create the necessary
+modelsection.m will use the outputs of FeMIP_regrid and GEOTRACES_section.m to create the necessary
 process files for modelplot.m
 
 -------------------
 Useful NCO commands
 -------------------
 
-For FeMIP, the model file must have certain attributes and variable names. Ideally, the model outputs
-should be CMOR-ized (https://cmor.llnl.gov/) in their file structure to be compatible with FeMIP.
+For FeMIP_regrid, the model file(s) must have certain attributes and variable names. Ideally, the model outputs
+should be CMOR-ized (https://cmor.llnl.gov/) in their file structure to be compatible with FeMIP_regrid.
 Therefore, here are a number of common NCO and CDO commands that can be used to preprocess a file 
-before running FeMIP.
+before running FeMIP_regrid.
 
 Associate your lon and lat variables with a specific variable
 
