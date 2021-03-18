@@ -20,7 +20,7 @@
 %
 %   In addition, modelplot has three optional inputs:
 %
-%   axis -  (create the section plots using either lon or lat), use 'lon' to
+%   axis -  (create the section plots along either lon or lat), use 'lon' to
 %   create a plot along longitude and 'lat' for latitude. The default is 
 %   for latitude
 %
@@ -46,6 +46,16 @@
 function modelplot(section,model_section,axis,scale_model,units)
 
 %% Load the reguired mat files
+
+% Basic check 
+
+if ~exist('section','var') 
+    error('No section chosen, please input section eg: "GA02" ');
+end
+
+if ~exist('model_section','var') 
+    error('No model section chosen, please input section eg: "FeMIP_GA02..." ');
+end
 
 load(strcat(section,'.mat'));         % Load the OBS
 load(strcat(model_section,'.mat'));    % Load the MODEL

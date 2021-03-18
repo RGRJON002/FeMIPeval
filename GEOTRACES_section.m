@@ -27,20 +27,20 @@ function GEOTRACES_section(section,variable,vgrid)
 %
 % EXAMPLE 1:
 % GEOTRACES_section without any argument is equivalent to running 
-% GEOTRACES_section('GA02','var73') if the path 
+% GEOTRACES_section('GA02','var73') 
 %
 % If you choose to use a custom grid (FeMIP_makegrid), then you can apply 
 % it to the GEOTRACES Data
 %
 % EXAMPLE 2:
 % The user has the option to use the grid generated with FeMIP_makegrid. 
-% Use 'T' if you would like to use your custom grid from makegrid; else
+% Use 'T' if you would like to use your custom grid from FeMIP_makegrid; else
 % leave blank or set to 'F' to use the default WOA01 vertical grid
 %
 % GEOTRACES_section('GA02','var73','T')
 %
-% Refer to the makegrid file and the README.txt for more information.
-% NOTE: if you set the vgrid option to 'F', but you used makegrid, this may
+% Refer to the FeMIP_makegrid file and the README.txt for more information.
+% NOTE: if you set the vgrid option to 'F', but you used FeMIP_makegrid, this may
 % generate an error if the grid dimension and design are not identical
 %
 % List of sections available:

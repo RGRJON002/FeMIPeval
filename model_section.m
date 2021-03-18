@@ -1,6 +1,6 @@
- %  model_section is intended to be used once the FeMIP script has been run for the model of choice.
+ %  model_section is intended to be used once the FeMIP_regrid script has been run for the model of choice.
  %  Using the output .mat file produced by GEOTRACES_section, model_section extracts the same section as that
- %  from GEOTRACES_section but for the model data.
+ %  from GEOTRACES_section but from the model data.
  %
  %  model_section allows for four inputs of which three are manditory
  %
@@ -31,10 +31,23 @@
 %% Load the .mat file of the desired station
 
 function model_section(section,file,var,modelname)
+% Basic check
 
-if ~exist('section','var') || ~exist('file','var') || ~exist('var','var')   
-        error('Not enough input arguments')
+if ~exist('section','var')
+    error('No section chosen, please input section eg: "GA02" '); 
 end
+
+if ~exist('file','var')
+    error('No model input, please provide model file'); 
+end
+
+if ~exist('var','var')
+    error('No variable from model file has been chosen'); 
+end
+
+% if ~exist('section','var') || ~exist('file','var') || ~exist('var','var')   
+%         error('Not enough input arguments')
+% end
 
 load(strcat(section,'.mat'))    % Load the structure file of interest
 
