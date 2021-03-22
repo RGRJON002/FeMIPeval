@@ -93,7 +93,6 @@ then
    echo "The directory ${OUTDIR} does not exist. Creating it..."
    mkdir $OUTDIR    # Create directory where processed files will go
 fi
-cd $INDIR
 
 LONLAT="-180,180,-90,90"
 GRID="r360x180"
@@ -131,7 +130,7 @@ fi
 for f in "$@"
 do
   echo $f
-  cdo -f nc remapnn,$TEMPLATE -intlevel,$LEVELS $f $OUTDIR/$f
+  cdo -f nc remapnn,$TEMPLATE -intlevel,$LEVELS $INDIR/$f $OUTDIR/$f
   if [ "$MYGRID" = true ] ; then
     cdo -f nc setzaxis,mygrid $OUTDIR/$f $OUTDIR/FeMIP_$f           # Loop over the file(s) and do the interpolation
     mv $INDIR/levels $OUTDIR/

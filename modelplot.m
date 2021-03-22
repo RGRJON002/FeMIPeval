@@ -20,18 +20,18 @@
 %
 %   In addition, modelplot has three optional inputs:
 %
-%   axis -  (create the section plots along either lon or lat), use 'lon' to
-%   create a plot along longitude and 'lat' for latitude. The default is 
-%   for latitude
-%
 %   scale_model - If not done so already, scale the model output to the
 %   units of the observational data. Default is set to 0.
 %
 %   units - Set the units that will appear on the plots
 %
+%   axis -  (create the section plots along either lon or lat), use 'lon' to
+%   create a plot along longitude and 'lat' for latitude. The default is 
+%   for latitude
+%
 %   EXAMPLE 2:
 %
-%   modelplot('GA02_var73','FeMIP_GA02_FER','lat',3,'umol Fe/m^3')
+%   modelplot('GA02_var73','FeMIP_GA02_FER',3,'umol Fe/m^3','lat')
 %   
 %   NOTE: To create some of the plots, this script requires the mapping
 %   package m_map which is available at https://www.eoas.ubc.ca/~rich/map.html
@@ -43,7 +43,7 @@
 
 %% Create function modelplot
 
-function modelplot(section,model_section,axis,scale_model,units)
+function modelplot(section,model_section,scale_model,units,axis)
 
 %% Load the reguired mat files
 

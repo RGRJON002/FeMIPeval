@@ -34,7 +34,7 @@ function model_section(section,file,var,modelname)
 % Basic check
 
 if ~exist('section','var')
-    error('No section chosen, please input section eg: "GA02" '); 
+    error('No section file chosen, please input the generated section eg: "GA02_var73" '); 
 end
 
 if ~exist('file','var')
@@ -91,13 +91,12 @@ depth = ncread(file,'depth'); % Read and append the depth dimension
 section = extractBefore(section,'_');
 
 if ~exist('modelname','var')
-    data = struct(strcat('FeMIP','_',section,'_',var,'_longitude'),lon_grid,strcat('FeMIP','_',section,'_',var,'_latitude'),...
-           lat_grid,strcat('FeMIP','_',section,'_',var),tab,strcat('FeMIP','_',section,'_',var,'_depth'),depth);  % Create data structure
-    save(strcat('FeMIP','_',section,'_',var),'-struct','data');    % Save structure
-else
-    data = struct(strcat(modelname,'_',section,'_',var,'_longitude'),lon_grid,strcat(modelname,'_',section,'_',var,'_latitude'),...
-           lat_grid,strcat(modelname,'_',section,'_',var),tab,strcat(modelname,'_',section,'_',var,'_depth'),depth);  % Create data structure
-    save(strcat(modelname,'_',section,'_',var),'-struct','data');    % Save structure
+    modelname = 'FeMIP';
 end
+
+data = struct(strcat(modelname,'_',section,'_',var,'_longitude'),lon_grid,strcat(modelname,'_',section,'_',var,'_latitude'),...
+    lat_grid,strcat(modelname,'_',section,'_',var),tab,strcat(modelname,'_',section,'_',var,'_depth'),depth);  % Create data structure
+save(strcat(modelname,'_',section,'_',var),'-struct','data');    % Save structure
+
 end
 
