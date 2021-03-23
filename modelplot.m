@@ -20,10 +20,11 @@
 %
 %   In addition, modelplot has three optional inputs:
 %
-%   scale_model - If not done so already, scale the model output to the
-%   units of the observational data. Default is set to 0.
+%   scale_factor - If needed, scale the model output to the
+%   units of the observational data. Default is set to 1. Check the IDP
+%   units
 %
-%   units - Set the units that will appear on the plots
+%   units - Set the units that will appear on the plot labels
 %
 %   axis -  (create the section plots along either lon or lat), use 'lon' to
 %   create a plot along longitude and 'lat' for latitude. The default is 
@@ -31,7 +32,9 @@
 %
 %   EXAMPLE 2:
 %
-%   modelplot('GA02_var73','FeMIP_GA02_FER',3,'umol Fe/m^3','lat')
+%   modelplot('GA02_var73','FeMIP_GA02_FER',1000,'umol Fe/m^3','lat')
+%     in this case, the model units are in mmol/m^3 and a factor 1000
+%     should be added
 %   
 %   NOTE: To create some of the plots, this script requires the mapping
 %   package m_map which is available at https://www.eoas.ubc.ca/~rich/map.html
@@ -43,18 +46,28 @@
 
 %% Create function modelplot
 
-function modelplot(section,model_section,scale_model,units,axis)
+function modelplot(section,model_section,scale_factor,units,axis)
 
 %% Load the reguired mat files
 
 % Basic check 
 
 if ~exist('section','var') 
-    error('No section chosen, please input section eg: "GA02" ');
+    error('No GEOTRACES section chosen, please input section file eg: "GA02_var..." ');
 end
 
 if ~exist('model_section','var') 
-    error('No model section chosen, please input section eg: "FeMIP_GA02..." ');
+    error('No model section chosen, please input section file eg: "FeMIP_GA02..." ');
+end
+
+if ~exist('scale_factor','var')
+    warning('You have not provided a scale factor. I assume that the model data have the same units of GEOTRACES data')
+    disp('If this is not the case, the plot may not look like the way you expect it.')
+    scale_factor = 1;
+end
+
+if ~exist('units','var')
+    units = ' ';                   % If no units are specified, have null
 end
 
 load(strcat(section,'.mat'));         % Load the OBS
@@ -90,13 +103,7 @@ elseif exist('axis','var')
     end
 end
 
-if ~exist('scale_model','var')     % Scale the model data, default is power of 0
-    scale_model = 0;
-end
 
-if ~exist('units','var')
-    units = ' ';                   % If no units are specified, have null
-end
 %% Create the basic figure
 figure
 
@@ -133,7 +140,7 @@ m_text(lon_obs(end),lat_obs(end),list{1},'Color',text{1})
 
 subplot(3,2,3)           % Section plot of MODEL
 
-grr = iron_model * 10^(scale_model);
+grr = iron_model * scale_factor;
 
 pcolor(axis_plotmodel,-depth_model,grr)
 title('(c)')
