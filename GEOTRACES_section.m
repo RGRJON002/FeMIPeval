@@ -3,6 +3,10 @@ function GEOTRACES_section(section,variable,vgrid)
 % This script is intended to be used in conjuction with the
 % GEOTRACES_IDP2017_v2_Discrete_Sample_Data.nc available at
 % http://www.geotraces.org/dp/idp2017. 
+% This file must be known to matlab by adding the folder 
+% to the matlab path using addpath
+%    >> addpath ../GEOTRACES/discrete_sample_data/netcdf
+%    where the argument is the full path to the folder on your system
 %
 % GEOTRACES_section extracts data for a chosen variable from station locations where depth profiles of that variable were
 % taken. The output will be a .mat file with the name of the desired section
@@ -22,8 +26,6 @@ function GEOTRACES_section(section,variable,vgrid)
 % - a vertical grid, in a file named 'levels'. 
 %   If no grid is specified, the default interpolation is
 %   to the World Ocean Atlas 2001 (WOA01) (Conkright et al. 2002)
-% - the file path to GEOTRACES_IDP2017_v2_Discrete_Sample_Data.nc, unless
-%   added to the the search path (with the addpath command)
 %
 % EXAMPLE 1:
 % GEOTRACES_section without any argument is equivalent to running 
@@ -87,7 +89,10 @@ VAR = 'var73'; % dissolved Fe
 SEC = 'GA02';
 
 if ~exist(IDP,'file')
-    error(['GEOTRACES file ',IDP,' not found! e.g. addpath ../GEOTRACES/discrete_sample_data/netcdf'])
+    disp('The GEOTRACES data folder cannot be found. Did you add it to the matlab path?')
+    disp('Type the following in the matlab prompt: addpath PATH_TO_FOLDER')
+    disp('e.g. >> addpath ../GEOTRACES/discrete_sample_data/netcdf')
+    error(['GEOTRACES file ',IDP,' not found!'])
 else
     file = IDP;
 end
