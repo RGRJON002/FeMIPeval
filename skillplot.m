@@ -43,7 +43,7 @@ function skill = skillplot(obs,mod,dlim,NBOOT)
 %
 % see also: PVALUES, BOOTCI, NASHSUTCLIFFE, RELINDEX
 
-% Copyright (C) 2009  M. Vichi (vichi@bo.ingv.it)
+% Copyright (C) 2009  M. Vichi 
 %
 %     This program is free software: you can redistribute it and/or modify
 %     it under the terms of the GNU General Public License as published by

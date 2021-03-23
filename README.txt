@@ -1,5 +1,5 @@
 --------------
-Introduction
+FeMIPeval Introduction
 --------------
 
 This package consists of the following bash and MATLAB scripts:

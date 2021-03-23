@@ -15,8 +15,7 @@ function [pval,pref,p] = pvalues(nboot,bootfun,scoretype,varargin)
 %   FUN. The p-value PVAL is derived from the proportion of scores larger
 %   than the reference score PREF
 
-%   M. Vichi (INGV-CMCC), modified from MATLAB BOOTSTRP function
-%   Do not distribute since it contains copyrighted material
+%   Modified from MATLAB BOOTSTRP function
 
 % Initialize matrix to identify scalar arguments to bootfun.
 la = length(varargin);

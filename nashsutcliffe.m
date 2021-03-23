@@ -43,7 +43,7 @@
 % King County, Department of Natural Resources and Parks
 % 3/7/2007
 % email: jeff.burkey@metrokc.gov
-% Modified for usage in the SESAME project by M. Vichi
+% Modified by M. Vichi
 %
 
 function [NSout metric_id] = nashsutcliffe(obsData, simData)

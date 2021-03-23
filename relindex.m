@@ -6,7 +6,7 @@ function y = relindex(obsData,simData)
 %   References:
 %   Legget and Williams, 1981; Stow et al., 2009
 
-% Copyright (C) 2009  M. Vichi (vichi@bo.ingv.it)
+% Copyright (C) 2009  M. Vichi 
 %
 %     This program is free software: you can redistribute it and/or modify
 %     it under the terms of the GNU General Public License as published by

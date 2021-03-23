@@ -4,7 +4,7 @@ function [y,ycp] = rmsd(obsData,simData)
 %   square difference (total and unbiased) of the input matrix O and P 
 %   (observations and predictions) 
 
-% Copyright (C) 2009  M. Vichi (vichi@bo.ingv.it)
+% Copyright (C) 2009  M. Vichi 
 %
 %     This program is free software: you can redistribute it and/or modify
 %     it under the terms of the GNU General Public License as published by
