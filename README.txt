@@ -19,6 +19,23 @@ This package consists of the following bash and MATLAB scripts:
 The collection of scripts allows a user to conduct observational data vs model comparisons with the 
 GEOTRACES_IDP2017_v2 data set
 
+-------------- --------------
+FeMIPeval – Quick Start Guide
+-------------- --------------
+
+1. What do you need? 
+A netcdf version of the 2017 GEOTRACES Intermediate Data Product 
+CDO and NCO installed
+Matlab, including m_map
+Your model output as a netcdf (ideally CMOR-ised)
+
+2. What is the workflow?
+
+(A)	Extract the GEOTRACES data for the section and variable of interest using GEOTRACES_section.m matlab script
+(B)	Regrid your model output using FEMIP_regrid shell script
+(C)	Extract the model data for the GEOTRACES section using model_section.m matlab script
+(D)	Construct the skill assessment using modelplot.m matlab script
+
 --------------
 Flow Diagram
 --------------
@@ -69,6 +86,12 @@ ncrename -a OLDNAME, NEWNAME FILE.nc
 Subset a file with only selected variables
 
 cdo select,name=VAR1,VAR2, … ,VARN FILE.nc FILE_NEW.nc
+
+-------------------
+Acknowledgements
+-------------------
+The work of WG 151 presented in this article results, in part, from funding provided by national committees of the Scientific Committee on Oceanic Research (SCOR) and from a grant to SCOR from the U.S. National Science Foundation (OCE-1840868).
+
 
 March 2020
 Edited December 2020
