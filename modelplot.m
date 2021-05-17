@@ -156,6 +156,8 @@ subplot(3,2,4)      % GOF plot
 
 ironobs = reshape(iron_obs,[],1);
 ironmodel = reshape(grr,[],1);
+ironmodel(ironmodel == 0) = NaN;  % For skillplot
+ironobs(ironobs == 0) = NaN;
 ind_mis = find(isnan(ironobs));
 ironobs(ind_mis) = [];
 ironmodel(ind_mis) = [];
