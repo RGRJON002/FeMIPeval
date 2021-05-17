@@ -65,13 +65,17 @@ sec_lat = eval(C{5});    % List variables in section.mat and asign to sec_lat an
 sec_lon = eval(C{6});    % sec_lon
 
 for i = 1:length(sec_lat)
-    [a(i),b(i)] = mll2grid(sec_lat(i),sec_lon(i),Lat,Lon);  % Loop over and find corresponding points
+    [a,b] = mll2grid(sec_lat(i),sec_lon(i),Lat,Lon);  % Loop over and find corresponding points
+    % Should two points have the same distance by some chance, am too lazy,
+    % so will just take the first point for each indice
+    aa(i) = a(1);
+    bb(i) = b(1);
 end
    
 %% Index the model with the lon and lat values from the GEOTRACES data
 
-lon_grid = lon_grid(a); % index model grid
-lat_grid = lat_grid(b); % index model grid
+lon_grid = lon_grid(aa); % index model grid
+lat_grid = lat_grid(bb); % index model grid
 
 %% Load the model varibale and extract the section
 
@@ -80,7 +84,7 @@ modelvar(modelvar==0) = NaN;    % If file uses zero instead of NaN, replace
 var_mean = nanmean(modelvar,4);    % variable mean across time dimension
 
 for i = 1:length(lon_grid)
-    tab(i,:) = squeeze(var_mean(a(i),b(i),:)); % Extract locations in the model
+    tab(i,:) = squeeze(var_mean(aa(i),bb(i),:)); % Extract locations in the model
 end
 
 tab = tab';
