@@ -105,11 +105,11 @@ if [ "$MYGRID" = true ] ; then
 
 # Use the mygrid file
 
-  read line < depth
+  read line < ${INDIR}/depth
   numbers=($line)
   LEVELS="$numbers"
-  cp ./mygrid $OUTDIR/
-  chmod 755 mygrid
+  cp ${INDIR}/mygrid $OUTDIR/
+  chmod 755 ${INDIR}/mygrid
 
 else
 
@@ -132,7 +132,7 @@ do
   echo $f
   cdo -f nc remapnn,$TEMPLATE -intlevel,$LEVELS $INDIR/$f $OUTDIR/$f
   if [ "$MYGRID" = true ] ; then
-    cdo -f nc setzaxis,mygrid $OUTDIR/$f $OUTDIR/FeMIP_$f           # Loop over the file(s) and do the interpolation
+    cdo -f nc setzaxis,${OUTDIR}/mygrid $OUTDIR/$f $OUTDIR/FeMIP_$f           # Loop over the file(s) and do the interpolation
     mv $INDIR/levels $OUTDIR/
   else
     cdo -f nc setzaxis,WOA01 $OUTDIR/$f $OUTDIR/FeMIP_$f
@@ -142,7 +142,7 @@ done
 
 # cleanup
 if [ "$MYGRID" = true ] ; then
-  rm depth mygrid
+  rm ${INDIR}/depth ${INDIR}/mygrid
 else
   rm WOA01
 fi
